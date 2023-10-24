@@ -83,29 +83,13 @@ if __name__ == "__main__":
     input_video_path = "test.mp4"
     converted_video_path = "converted_video.mp4"
     audio_output_path = "extracted_audio.mp3"
-    
-    # Convert to MP4
     convert_to_mp4(input_video_path, converted_video_path)
-    
-    # Extract audio from converted video
     extract_audio_from_video(converted_video_path, audio_output_path)
-    
-    # Load the extracted audio file
     audio = AudioSegment.from_file(audio_output_path, format="mp3")
-    
-    # Initialize Whisper model
     model = whisper.load_model("small")
-    
-    # Generate SRT
     generate_srt(audio, model)
-    
-    # Burn subtitles into the converted video
     burn_subtitles_to_video(converted_video_path, "subtitles.srt", "output_video_with_subtitles.mp4")
-    # end time
     end_time = time.time()
     print(f"Time taken: {end_time - start_time} seconds")
-
-    # remove temp files
     os.remove(converted_video_path)
     os.remove(audio_output_path)
-
